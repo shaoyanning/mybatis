@@ -4,25 +4,36 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <!-- xml有两种: 合法XML 有效XML(xsd,dtd) -->
 <configuration>
-    <!-- 指定缺省的数据库连接配置 -->
+
+	<typeAliases>
+		<!-- 自定义的别名 
+		<typeAlias type="cn.dw.oa.model.Product" alias="product" />
+		-->
+		<!-- 前提是所有的model应该在同一个包 ,默认的别名就是类简单名称,且第一个字母小写-->
+		<package name="cn.dw.oa.model"/>
+	</typeAliases>
+
+	<!-- 指定缺省的数据库连接配置 -->
 	<environments default="development">
 		<environment id="development">
-		    <!-- 目前没有与spring整合,则采用原生的JDBC事务,后面会使用声明式事务 -->
+			<!-- 目前没有与spring整合,则采用原生的JDBC事务,后面会使用声明式事务 -->
 			<transactionManager type="JDBC" />
 			<!-- 配置数据库连接参数 -->
 			<dataSource type="POOLED">
 				<property name="driver" value="com.mysql.jdbc.Driver" />
-				<property name="url" value="jdbc:mysql://localhost:3306/demo?characterEncoding=UTF-8" />
+				<property name="url"
+					value="jdbc:mysql://localhost:3306/demo?characterEncoding=UTF-8" />
 				<property name="username" value="root" />
 				<property name="password" value="123456" />
 			</dataSource>
 		</environment>
-		<!-- 同时配置多个数据库连接 
-		<environment id="demo02" />
-		-->
+		<!-- 同时配置多个数据库连接 <environment id="demo02" /> -->
 	</environments>
 	<!-- 加载操作数据库的映射文件,后面会采用包自动扫描 -->
 	<mappers>
 		<mapper resource="cn/dw/oa/dao/ProductMapper.xml" />
 	</mappers>
+
+
+
 </configuration>

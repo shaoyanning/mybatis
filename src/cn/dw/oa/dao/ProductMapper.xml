@@ -4,9 +4,25 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!-- mybatis核心文件,用来封装优化数据库读取操作 -->
 <mapper namespace="aa.bb.cc">
-    <!-- parameterType 传入的类型 -->
-	<insert id="save" parameterType="cn.dw.oa.model.Product">
-		insert into product (name,price,remark) values (#{name},#{price},#{remark})
+
+	<!-- parameterType 传入的类型,mybatis有系统别名,并且支持自定义别名 -->
+	<insert id="save" parameterType="product">
+		insert into product
+		(name,price,remark) values (#{name},#{price},#{remark})
 	</insert>
+	<update id="update" parameterType="product">
+		update product set name=#{name},remark = #{remark},price = #{price} where id = #{id}
+	</update>
+	<delete id="delete" parameterType="int">
+		delete from product where id = #{id}
+	</delete>
+	<select id="getById" parameterType="int" resultType="product">
+		select * from product where id = #{id}
+	</select>
+	<!-- 如果是查询集合,resultType：定义的是查询集合里面存储的类型,而非定义集合类型 -->
+	<select id="queryByName" parameterType="map" resultType="product">
+		select * from product where name like #{keyword} limit #{start},#{size}
+	</select>
+	
 </mapper>
 
