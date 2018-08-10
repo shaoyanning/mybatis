@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- mybatis核心文件,用来封装优化数据库读取操作 -->
+<mapper namespace="aa.bb.cc">
+    <!-- parameterType 传入的类型 -->
+	<insert id="save" parameterType="cn.dw.oa.model.Product">
+		insert into product (name,price,remark) values (#{name},#{price},#{remark})
+	</insert>
+</mapper>
+
