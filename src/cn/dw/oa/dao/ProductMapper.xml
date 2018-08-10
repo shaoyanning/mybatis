@@ -4,14 +4,41 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!-- mybatis核心文件,用来封装优化数据库读取操作 -->
 <mapper namespace="aa.bb.cc">
-
 	<!-- parameterType 传入的类型,mybatis有系统别名,并且支持自定义别名 -->
 	<insert id="save" parameterType="product">
 		insert into product
-		(name,price,remark) values (#{name},#{price},#{remark})
+		(<include refid="param" />) values (<include refid="value" />)
 	</insert>
+	
+	<!-- sql代码片段 -->
+	<sql id="param">
+	    <trim suffixOverrides=",">
+		    <if test="name!=null">name,</if>
+		    <if test="price!=null">price,</if>
+		    <if test="remark!=null">remark,</if>
+		    <if test="date!=null">date,</if>
+	    </trim>
+	</sql>
+	
+	<sql id="value">
+		<trim suffixOverrides=",">
+		    <if test="name!=null">#{name},</if>
+		    <if test="price!=null">#{price},</if>
+		    <if test="remark!=null">#{remark},</if>
+		    <if test="date!=null">#{date},</if>
+	    </trim>
+	</sql>
+	
+	
 	<update id="update" parameterType="product">
-		update product set name=#{name},remark = #{remark},price = #{price} where id = #{id}
+		update product
+		<set>
+			<if test="name!=null"> name = #{name}, </if>
+			<if test="remark!=null"> remark = #{remark}, </if>
+			<if test="price!=null"> price = #{price},</if>
+			<if test="date!=null"> date = #{date},</if>
+		</set>
+		where id = #{id}
 	</update>
 	<delete id="delete" parameterType="int">
 		delete from product where id = #{id}
@@ -19,9 +46,25 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="getById" parameterType="int" resultType="product">
 		select * from product where id = #{id}
 	</select>
-	<!-- 如果是查询集合,resultType：定义的是查询集合里面存储的类型,而非定义集合类型 -->
+	<!-- 如果是查询集合,resultType：定义的是查询集合里面存储的类型,而非定义集合类型 
 	<select id="queryByName" parameterType="map" resultType="product">
 		select * from product where name like #{keyword} limit #{start},#{size}
+	</select>
+	-->
+	<select id="queryByName" parameterType="map" resultType="product">
+		select * from product
+		<where>
+		    <!-- 通过表达式判断查询的条件 -->
+			<if test="keyword!=null">
+				and name like #{keyword}
+			</if>
+			<if test="minPrice!=null">
+				and price &gt; #{minPrice}
+			</if>
+			<if test="maxPrice!=null">
+				and price &lt; #{maxPrice}
+			</if>
+		</where>
 	</select>
 	
 </mapper>

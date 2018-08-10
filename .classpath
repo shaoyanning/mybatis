@@ -4,5 +4,8 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="lib" path="lib/mybatis-3.2.3.jar" sourcepath="C:/Users/Administrator/Desktop/mybatis-3.2/mybatis-3.2.3-sources.jar"/>
 	<classpathentry kind="lib" path="lib/mysql-connector-java-5.1.24.jar"/>
+	<classpathentry kind="lib" path="lib/commons-logging-1.2.jar"/>
+	<classpathentry kind="lib" path="lib/log4j-1.2.9.jar"/>
+	<classpathentry kind="lib" path="lib/mybatis-spring-1.2.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

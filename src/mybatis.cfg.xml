@@ -8,7 +8,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 	<typeAliases>
 		<!-- 自定义的别名 
 		<typeAlias type="cn.dw.oa.model.Product" alias="product" />
-		-->
+		-->		
 		<!-- 前提是所有的model应该在同一个包 ,默认的别名就是类简单名称,且第一个字母小写-->
 		<package name="cn.dw.oa.model"/>
 	</typeAliases>
@@ -31,6 +31,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 	</environments>
 	<!-- 加载操作数据库的映射文件,后面会采用包自动扫描 -->
 	<mappers>
+	    <!--  -->
 		<mapper resource="cn/dw/oa/dao/ProductMapper.xml" />
 	</mappers>
 

@@ -12,18 +12,21 @@ import cn.dw.oa.utils.MyBatisUtils;
 public class ProductDao {
 
 	public static void main(String[] args) {
-		ProductDao dao = new ProductDao();
-//		System.out.println(dao.getById(3));
-		List<Product> pList = dao.queryByName("",1,5);
-		for(Product temp:pList) {
-			System.out.println(temp);
-		}
-		// Product product = new Product();
-		// product.setName("mybatis测试");
-		// product.setId(8);
-		// product.setRemark("新的备注");
-		// product.setPrice(300.00);
-		//// dao.update(product);
+		System.out.println(ProductDao.class.getName());
+		System.out.println(ProductDao.class.getSimpleName());
+//		ProductDao dao = new ProductDao();
+////		System.out.println(dao.getById(3));
+//		List<Product> pList = dao.queryByName("",500,5000);
+//		for(Product temp:pList) {
+//			System.out.println(temp);
+//		}
+//		 Product product = new Product();
+//		 product.setName("mybatis测试");
+//		 product.setId(3);
+//		 product.setRemark("新的备注");
+//		 product.setPrice(300.00);
+//		 dao.update(product);
+//		 dao.save(product);
 		// dao.delete(5);
 	}
 
@@ -38,13 +41,14 @@ public class ProductDao {
 		}
 	}
 
-	public List<Product> queryByName(String keyword, int page, int size) {
+	public List<Product> queryByName(String keyword, int minPrice, int maxPrice) {
 		SqlSession session = MyBatisUtils.getSession();
+		
 		try {
 			Map<String, Object> paramMap = new HashMap<String, Object>();
 			paramMap.put("keyword", "%" + keyword + "%");
-			paramMap.put("start", (page - 1) * size);
-			paramMap.put("size", size);
+//			paramMap.put("minPrice", minPrice);
+			paramMap.put("maxPrice", maxPrice);
 			return session.selectList("aa.bb.cc.queryByName", paramMap);
 		} catch (Exception e) {
 			throw new RuntimeException(e);
